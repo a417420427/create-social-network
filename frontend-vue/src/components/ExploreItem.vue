@@ -13,11 +13,7 @@
               <UserIcon />
               {{post.author.username}}
             </div>
-            <div
-              :class="{'is-followed': isFollowed}"
-              class="follow"
-              @click="followClicked"
-            >{{isFollowed? $t('following') : $t('follow')}}</div>
+            <Follow :user="post.author" />
           </div>
           <div class="title">{{post.title}}</div>
         </div>
@@ -36,6 +32,7 @@ import * as followSql from '../../graphql/follow';
 import CreateComment from './CreateComment';
 import CommentAndLike from './CommentAndLike';
 import CommentsList from './CommentsList';
+import Follow from './Follow';
 import { createFollow, deleteFollow } from '../request/follow.js';
 export default {
   data() {
@@ -54,6 +51,7 @@ export default {
     CreateComment,
     CommentsList,
     CommentAndLike,
+    Follow,
   },
   computed: {
     author() {
@@ -70,6 +68,11 @@ export default {
         this.exploreDetailVisiable = false;
       }
     },
+    handleCancel(e) {
+      if (e.keyCode === 27) {
+        this.exploreDetailVisiable = false;
+      }
+    },
     async followClicked() {
       if (this.isFollowed) {
         await deleteFollow(this.isFollowed.id);
@@ -77,6 +80,12 @@ export default {
         await createFollow(this.post.author.id);
       }
     },
+  },
+  mounted() {
+    window.addEventListener('keydown', this.handleCancel);
+  },
+  beforeDestroy() {
+    window.removeEventListener('keydown', this.handleCancel);
   },
 };
 </script>
