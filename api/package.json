@@ -4,10 +4,10 @@
   "private": true,
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "export MONGO_URL=mongodb://localhost:27017/data && export SECRET=Super!@Strong!!@::!Secret && export FRONTEND_URL=http://localhost:8888 && export API_PORT=4000 && export CLOUDINARY_CLOUD_NAME=nutstore && export CLOUDINARY_API_KEY=215473764921887 && export CLOUDINARY_SECRET=TMLKwNDQg0qjsmnzzy73TQsCiXM && nodemon index.js",
+    "test": "nodemon ./packages_test/mongoose.js"
   },
   "dependencies": {
-    "apollo-server": "^2.9.6",
     "apollo-server-express": "^2.4.8",
     "bcryptjs": "^2.4.3",
     "cloudinary": "^1.15.0",
@@ -15,14 +15,13 @@
     "dotenv": "^7.0.0",
     "esm": "^3.2.25",
     "express": "^4.16.4",
-    "graphql": "^14.2.0",
     "graphql-tools": "^4.0.4",
     "jsonwebtoken": "^8.5.1",
-    "lodash": "^4.17.11",
     "mongoose": "^5.7.0",
     "nodemailer": "^6.2.1",
-    "subscriptions-transport-ws": "^0.9.16",
-    "uuid": "^3.3.2"
+    "uuid": "^3.3.2",
+    "graphql": "^14.2.0",
+    "lodash": "^4.17.11"
   },
   "devDependencies": {
     "nodemon": "^1.18.10"

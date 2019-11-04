@@ -7,6 +7,7 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_SECRET,
 });
 
+console.log(process.env);
 /**
  *  Uploads file to Cloudinary CDN
  *

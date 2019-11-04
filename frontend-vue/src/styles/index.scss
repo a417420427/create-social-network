@@ -1,0 +1,9 @@
+@import './rest.scss';
+@import './lib.scss';
+
+body {
+  background: $colors-body;
+  font-family: $font-family;
+  color: $colors-textPrimary;
+  font-size: 14px;
+}
