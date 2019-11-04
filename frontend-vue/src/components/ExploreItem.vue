@@ -28,7 +28,6 @@
 </template>
 <script>
 import { UserIcon } from '../icons';
-import * as followSql from '../../graphql/follow';
 import CreateComment from './CreateComment';
 import CommentAndLike from './CommentAndLike';
 import CommentsList from './CommentsList';

@@ -37,12 +37,3 @@ const router = new Router({
 });
 
 export default router;
-
-function test() {
-  console.log(this, 'xxxxxxxxxxxx');
-}
-const bindThis = {
-  test,
-};
-
-bindThis.test();

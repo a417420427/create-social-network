@@ -4,7 +4,7 @@
   </ul>
 </template>
 <script>
-import * as postSql from '../../graphql/post';
+import { GET_POSTS } from '../graphql/post';
 import ExploreItem from './ExploreItem';
 export default {
   data() {
@@ -19,7 +19,7 @@ export default {
   },
   apollo: {
     getPosts: {
-      query: postSql.GET_POSTS,
+      query: GET_POSTS,
       variables() {
         return {
           limit: this.limit,

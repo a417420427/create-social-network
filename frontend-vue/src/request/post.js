@@ -1,9 +1,5 @@
-import {
-  CREATE_POST,
-  DELETE_POST,
-  GET_FOLLOWED_POSTS,
-} from '../../graphql/post';
-import { GET_USER_POSTS } from '../../graphql/user';
+import { CREATE_POST, DELETE_POST, GET_FOLLOWED_POSTS } from '../graphql/post';
+import { GET_USER_POSTS } from '../graphql/user';
 import { mutate } from '.';
 import { getAuthInfoSync } from '../request/user';
 

@@ -1,5 +1,5 @@
-import { CREATE_LIKE, DELETE_LIKE } from '../../graphql/like';
-import { GET_FOLLOWED_POSTS, GET_POSTS } from '../../graphql/post';
+import { CREATE_LIKE, DELETE_LIKE } from '../graphql/like';
+import { GET_FOLLOWED_POSTS, GET_POSTS } from '../graphql/post';
 import { mutate } from '.';
 import { getAuthInfoSync } from '../request/user';
 

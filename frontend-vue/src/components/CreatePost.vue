@@ -34,8 +34,6 @@
 </template>
 <script>
 import { UserIcon, UploadImageIcon } from '../icons';
-import * as postSql from '../../graphql/post';
-import * as userSql from '../../graphql/user';
 import { mapState } from 'vuex';
 import { createPost } from '../request/post';
 import { getObjectURL } from '../utils/file';

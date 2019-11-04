@@ -1,13 +1,17 @@
-const iconContexts = require.context('.', false, /\.vue$/);
+import SearchIcon from './SearchIcon';
+import UserIcon from './UserIcon';
+import CloseIcon from './CloseIcon';
+import HomeIcon from './HomeIcon';
+import ExploreIcon from './ExploreIcon';
+import PeopleIcon from './PeopleIcon';
+import NotificationIcon from './NotificationIcon';
+import MenuIcon from './MenuIcon';
+import UploadImageIcon from './UploadImageIcon';
+import DotsIcon from './DotsIcon';
+import LikeIcon from './LikeIcon';
+import PostCommentIcon from './PostCommentIcon';
 
-const requireAll = context => context.keys().map(context);
-
-export const icons = {};
-requireAll(iconContexts).forEach(({ default: icon }) => {
-  icons[icon.__file.match(/src\/icons\/(\w+)\.vue/)[1]] = icon;
-});
-
-export const {
+export {
   SearchIcon,
   UserIcon,
   CloseIcon,
@@ -20,4 +24,4 @@ export const {
   DotsIcon,
   LikeIcon,
   PostCommentIcon,
-} = icons;
+};

@@ -12,9 +12,14 @@ export default async () => {
     },
   });
   const authInfo = await getAuthInfoSync();
-  Vue.prototype.authorId = authInfo.id;
-  Vue.prototype.username = authInfo.username;
-  Vue.prototype.following = authInfo.following;
+  if (authInfo) {
+    Vue.prototype.authorId = authInfo.id;
+    Vue.prototype.username = authInfo.username;
+    Vue.prototype.following = authInfo.following;
+  } else {
+    Vue.prototype.authorId = null;
+  }
+
   window.store = store;
 
   return store;

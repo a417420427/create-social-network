@@ -7,9 +7,7 @@
 </template>
 <script>
 import PostItem from './PostItem';
-import * as postSql from '../../graphql/post';
-import * as likeSql from '../../graphql/like';
-import * as commentSql from '../../graphql/comment';
+import { GET_FOLLOWED_POSTS } from '../graphql/post';
 import { createComment } from '../request/comment';
 import { deleteLike, createLike } from '../request/like';
 export default {
@@ -23,7 +21,7 @@ export default {
   },
   apollo: {
     getFollowedPosts: {
-      query: postSql.GET_FOLLOWED_POSTS,
+      query: GET_FOLLOWED_POSTS,
       variables() {
         return {
           limit: this.limit,
