@@ -32,9 +32,6 @@ export default {
       await deleteComment(id);
     },
   },
-  mounted() {
-    console.log(this.comments);
-  },
 };
 </script>
 <style lang="scss" scoped>

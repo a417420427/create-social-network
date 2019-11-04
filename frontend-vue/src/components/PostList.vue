@@ -1,13 +1,7 @@
 <template>
   <div class="post-list">
     <ul v-if="getFollowedPosts">
-      <li
-        is="PostItem"
-        v-for="post in getFollowedPosts.posts"
-        :key="post.id"
-        :post="post"
-        @likeClicked="likeClicked"
-      ></li>
+      <li is="PostItem" v-for="post in getFollowedPosts.posts" :key="post.id" :post="post"></li>
     </ul>
   </div>
 </template>
@@ -43,17 +37,6 @@ export default {
     PostItem,
   },
   methods: {
-    async likeClicked(post) {
-      if (this.isFetching) return;
-      const hasLike = post.likes.find(like => like.user === this.authorId);
-      this.isFetching = true;
-      if (hasLike) {
-        deleteLike(hasLike);
-      } else {
-        createLike(post);
-      }
-      this.isFetching = false;
-    },
     createComment,
   },
 };

@@ -1,12 +1,12 @@
 <template>
   <li
     class="explore-item"
-    @click="postDetailVisiable=true"
+    @click="exploreDetailVisiable=true"
     :style="{backgroundImage: `url(${post.image})`}"
   >
-    <div v-if="postDetailVisiable" class="post-detail modal-common">
-      <div class="explore-content">
-        <div class="explore-info">
+    <div @click="hideDetail" v-if="exploreDetailVisiable" class="post-detail modal-common">
+      <div ref="exploreContent" class="explore-content">
+        <div class="explore-content-info">
           <img v-if="post.image" :src="post.image" />
           <div class="info dp-f">
             <div class="user">
@@ -21,7 +21,7 @@
           </div>
           <div class="title">{{post.title}}</div>
         </div>
-        <div class="explore-block">
+        <div class="explore-content-block">
           <CommentAndLike :post="post" />
           <CommentsList :comments="post.comments" />
           <CreateComment :post="post" />
@@ -40,7 +40,7 @@ import { createFollow, deleteFollow } from '../request/follow.js';
 export default {
   data() {
     return {
-      postDetailVisiable: false,
+      exploreDetailVisiable: false,
     };
   },
   props: {
@@ -56,15 +56,23 @@ export default {
     CommentAndLike,
   },
   computed: {
+    author() {
+      return this.post.author;
+    },
     isFollowed() {
-      console.log(this.following, this.post.author.id);
-      return this.following.find(follow => follow.user === this.post.author.id);
+      return this.following.find(follow => follow.user === this.author.id);
     },
   },
   methods: {
+    hideDetail(e) {
+      e.stopPropagation();
+      if (!this.$refs.exploreContent.contains(e.target)) {
+        this.exploreDetailVisiable = false;
+      }
+    },
     async followClicked() {
       if (this.isFollowed) {
-        await deleteFollow(this.post.author.id);
+        await deleteFollow(this.isFollowed.id);
       } else {
         await createFollow(this.post.author.id);
       }
@@ -81,43 +89,41 @@ export default {
   .explore-content {
     background: #fff;
     box-sizing: border-box;
-  }
-
-  .explore-info {
-    > img {
-      width: 100%;
-    }
-    .info {
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 20px;
-      line-height: 30px;
-      border-bottom: 1px solid $colors-grey300;
-      .user {
-        color: $colors-grey500;
-        display: flex;
+    &-info {
+      > img {
+        width: 100%;
+      }
+      .info {
+        justify-content: space-between;
         align-items: center;
-        > svg {
-          margin-right: 10px;
+        padding: 10px 20px;
+        line-height: 30px;
+        border-bottom: 1px solid $colors-grey300;
+        .user {
+          color: $colors-grey500;
+          display: flex;
+          align-items: center;
+          > svg {
+            margin-right: 10px;
+          }
+        }
+        .follow {
+          color: $colors-primaryMain;
+          &.is-followed {
+            color: #333;
+          }
         }
       }
-      .follow {
-        color: $colors-primaryMain;
-        &.is-followed {
-          color: #333;
-        }
+
+      .title {
+        border-bottom: 1px solid $colors-body;
+        padding: 0 20px;
+        line-height: 36px;
       }
     }
-
-    .title {
-      border-bottom: 1px solid $colors-body;
+    &-block {
       padding: 0 20px;
-      line-height: 36px;
     }
-  }
-
-  .explore-block {
-    padding: 0 20px;
   }
 }
 </style>

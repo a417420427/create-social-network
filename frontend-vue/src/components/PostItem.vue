@@ -64,10 +64,6 @@ export default {
     CommentsList,
     CommentAndLike,
   },
-  computed: {
-    createTime() {},
-  },
-  created() {},
   methods: {
     generateTime(createdAt) {
       const { interval, unit } = timeAgo(createdAt);
