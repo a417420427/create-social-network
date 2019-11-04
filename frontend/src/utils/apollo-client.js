@@ -1,10 +1,8 @@
 import { ApolloClient } from 'apollo-client';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { onError } from 'apollo-link-error';
-import { ApolloLink, Observable, split } from 'apollo-link';
-import { createUploadLink } from 'apollo-upload-client';
-import { getMainDefinition } from 'apollo-utilities';
-import { WebSocketLink } from 'apollo-link-ws';
+import { ApolloLink, Observable } from 'apollo-link';
+const { createUploadLink } = require('apollo-upload-client');
 
 /**
  * Creates a Apollo Link, that adds authentication token to request
@@ -59,40 +57,14 @@ const handleErrors = () => {
  * Creates a Apollo Client
  *
  * @param {string} apiUrl, GraphQL api url
- * @param {string} websocketApiUrl, GraphQL WebSocket api url
  */
-export const createApolloClient = (apiUrl, websocketApiUrl) => {
+export const createApolloClient = apiUrl => {
   const cache = new InMemoryCache();
-
-  const errorLink = handleErrors();
   const authLink = createAuthLink();
-  const uploadLink = createUploadLink({ uri: apiUrl }); // Upload link also creates an HTTP link
-
-  // Create WebSocket link
-  const authToken = localStorage.getItem('token');
-  const wsLink = new WebSocketLink({
-    uri: websocketApiUrl,
-    options: {
-      reconnect: true,
-      connectionParams: {
-        authorization: authToken,
-      },
-    },
-  });
-
-  // Split links, so we can send data to each link
-  // depending on what kind of operation is being sent
-  const terminatingLink = split(
-    ({ query }) => {
-      const { kind, operation } = getMainDefinition(query);
-      return kind === 'OperationDefinition' && operation === 'subscription';
-    },
-    wsLink,
-    uploadLink
-  );
+  const uploadLink = createUploadLink({ uri: apiUrl });
 
   return new ApolloClient({
-    link: ApolloLink.from([errorLink, authLink, terminatingLink]),
+    link: ApolloLink.from([handleErrors(), authLink, uploadLink]),
     cache,
   });
 };

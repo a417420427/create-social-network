@@ -9,6 +9,7 @@ import {
   HomeIcon,
   PeopleIcon,
 } from 'components/icons';
+import { useLanguage } from 'i18n';
 
 const Link = styled(NavLink)`
   text-decoration: none;
@@ -51,13 +52,14 @@ const ListItem = styled.li`
  * Navigation component used in SideBar
  */
 const Navigation = () => {
+  const { $t } = useLanguage();
   return (
     <List>
       <Link exact activeClassName="selected" to="/">
         <ListItem>
           <HomeIcon />
           <Spacing right="sm" />
-          Home
+          {$t.home}
         </ListItem>
       </Link>
 
@@ -65,7 +67,7 @@ const Navigation = () => {
         <ListItem>
           <ExploreIcon width={20} />
           <Spacing right="sm" />
-          Explore
+          {$t.explore}
         </ListItem>
       </Link>
 
@@ -73,7 +75,7 @@ const Navigation = () => {
         <ListItem>
           <PeopleIcon />
           <Spacing right="sm" />
-          People
+          {$t.people}
         </ListItem>
       </Link>
 
@@ -81,7 +83,7 @@ const Navigation = () => {
         <ListItem>
           <NotificationIcon width={18} />
           <Spacing right="sm" />
-          Notifications
+          {$t.notifications}
         </ListItem>
       </Link>
     </List>

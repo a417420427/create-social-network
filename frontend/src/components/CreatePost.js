@@ -19,6 +19,7 @@ import { HOME_PAGE_POSTS_LIMIT } from 'constants/DataLimit';
 import { MAX_POST_IMAGE_SIZE } from 'constants/ImageSize';
 
 import { useGlobalMessage } from 'hooks/useGlobalMessage';
+import { useLanguage } from 'i18n';
 
 const Root = styled(Container)`
   border: 0;
@@ -97,7 +98,7 @@ const CreatePost = () => {
   const [image, setImage] = useState('');
   const [isFocused, setIsFocused] = useState(false);
   const [error, setError] = useState('');
-
+  const { $t } = useLanguage();
   const message = useGlobalMessage();
 
   const handleReset = () => {
@@ -189,7 +190,7 @@ const CreatePost = () => {
                     value={title}
                     onFocus={handleOnFocus}
                     onChange={handleTitleChange}
-                    placeholder="Add a post"
+                    placeholder={$t.addPost}
                   />
 
                   {!isFocused && (

@@ -16,6 +16,7 @@ import { NotificationType } from 'constants/NotificationType';
 import { useNotifications } from 'hooks/useNotifications';
 
 import { useStore } from 'store';
+import { useLanguage } from 'i18n';
 
 const StyledButton = styled(Button)`
   padding: ${p => p.theme.spacing.xs} 0;
@@ -26,7 +27,7 @@ const StyledButton = styled(Button)`
  */
 const Like = ({ postId, user, likes, withText, fullWidth }) => {
   const [loading, setLoading] = useState(false);
-
+  const { $t } = useLanguage();
   const [{ auth }] = useStore();
 
   const notification = useNotifications();
@@ -85,7 +86,7 @@ const Like = ({ postId, user, likes, withText, fullWidth }) => {
           >
             <LikeIcon color={hasLiked && 'primary.main'} />
             <Spacing inline left="xxs" />
-            {withText && <b>Like</b>}
+            {withText && <b>{$t.like}</b>}
           </StyledButton>
         );
       }}

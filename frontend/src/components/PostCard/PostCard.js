@@ -30,6 +30,8 @@ import * as Routes from 'routes';
 
 import { timeAgo } from 'utils/time-ago';
 
+import { useLanguage } from 'i18n';
+
 const Root = styled.div`
   width: 100%;
   border-radius: ${p => p.theme.radius.sm};
@@ -149,7 +151,7 @@ const PostCard = ({
   const [{ auth }] = useStore();
   const [isCommentOpen, setIsCommentOpen] = useState(false);
   const [isOptionOpen, setIsOptionOpen] = useState(false);
-
+  const { $t } = useLanguage();
   const toggleCreateComment = () => {
     setIsCommentOpen(true);
   };
@@ -222,7 +224,7 @@ const PostCard = ({
 
             <Spacing left="xs">
               <Name>{author.fullName}</Name>
-              <CreatedAt>{timeAgo(postCreated)}</CreatedAt>
+              <CreatedAt>{timeAgo(postCreated, $t)}</CreatedAt>
             </Spacing>
           </Author>
 
@@ -240,10 +242,10 @@ const PostCard = ({
         <BottomRow>
           <CountAndIcons>
             <Count>
-              {likes.length} likes
+              {likes.length} {$t.likes}
               <Spacing />
               <StyledButton onClick={toggleComment} text>
-                {comments.length} comments
+                {comments.length} {$t.comments}
               </StyledButton>
             </Count>
 
@@ -257,7 +259,8 @@ const PostCard = ({
               />
 
               <Button fullWidth text onClick={toggleCreateComment}>
-                <PostCommentIcon /> <Spacing inline left="xxs" /> <b>Comment</b>
+                <PostCommentIcon /> <Spacing inline left="xxs" />{' '}
+                <b>{$t.comment}</b>
               </Button>
             </Icons>
           </CountAndIcons>

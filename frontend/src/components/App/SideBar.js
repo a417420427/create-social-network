@@ -113,7 +113,7 @@ const SideBar = ({ location, isOpen, sideBarRef }) => {
 
       <Spacing top="sm" />
 
-      <Navigation />
+      {Navigation()}
     </Root>
   );
 };

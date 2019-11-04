@@ -15,6 +15,7 @@ import { USER_SUGGESTIONS } from 'graphql/user';
 import { USER_SUGGESTIONS_WIDTH, HEADER_HEIGHT } from 'constants/Layout';
 
 import * as Routes from 'routes';
+import { useLanguage } from 'i18n';
 
 const Root = styled.div`
   display: none;
@@ -78,7 +79,7 @@ const UserName = styled.div`
  */
 const UserSuggestions = () => {
   const [{ auth }] = useStore();
-
+  const { $t } = useLanguage();
   return (
     <Query query={USER_SUGGESTIONS} variables={{ userId: auth.user.id }}>
       {({ data, loading }) => {
@@ -95,7 +96,7 @@ const UserSuggestions = () => {
 
         return (
           <Root>
-            <H3>Suggestions For You</H3>
+            <H3>{$t.suggestions}</H3>
 
             <List>
               {data.suggestPeople.map(user => (

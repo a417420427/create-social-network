@@ -16,6 +16,7 @@ import { UPDATE_NOTIFICATION_SEEN } from 'graphql/notification';
 import { useStore } from 'store';
 
 import * as Routes from 'routes';
+import { useLanguage } from 'i18n';
 
 const NotificationItem = styled.div`
   display: flex;
@@ -83,32 +84,29 @@ const Image = styled.img`
  */
 const Notification = ({ notification, close, client }) => {
   const [{ auth }] = useStore();
-
+  const { $t } = useLanguage();
   const ref = React.useRef(null);
 
   useClickOutside(ref, close);
 
-  useEffect(
-    () => {
-      const MutateOnRender = async () => {
-        // Update notification seen for user
-        try {
-          await client.mutate({
-            mutation: UPDATE_NOTIFICATION_SEEN,
-            variables: {
-              input: {
-                userId: auth.user.id,
-              },
+  useEffect(() => {
+    const MutateOnRender = async () => {
+      // Update notification seen for user
+      try {
+        await client.mutate({
+          mutation: UPDATE_NOTIFICATION_SEEN,
+          variables: {
+            input: {
+              userId: auth.user.id,
             },
-            refetchQueries: () => [{ query: GET_AUTH_USER }],
-          });
-        } catch (err) {}
-      };
+          },
+          refetchQueries: () => [{ query: GET_AUTH_USER }],
+        });
+      } catch (err) {}
+    };
 
-      MutateOnRender();
-    },
-    [auth.user.id, auth.user.newNotifications.length, client]
-  );
+    MutateOnRender();
+  }, [auth.user.id, auth.user.newNotifications.length, client]);
 
   return (
     <NotificationItem ref={ref}>
@@ -147,7 +145,7 @@ const Notification = ({ notification, close, client }) => {
 
       {notification.comment && (
         <Action>
-          commented on your photo
+          {$t.commentNotice}
           <A
             to={generatePath(Routes.POST, { id: notification.comment.post.id })}
           >

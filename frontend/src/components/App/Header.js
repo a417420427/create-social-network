@@ -20,6 +20,7 @@ import { HEADER_HEIGHT } from 'constants/Layout';
 import SiteInfo from 'constants/SiteInfo.json';
 
 import * as Routes from 'routes';
+import { useLanguage } from 'i18n';
 
 const Root = styled(Container)`
   position: sticky;
@@ -179,7 +180,7 @@ const Header = ({ location, toggleSideBar }) => {
   const [isUserDropDownOpen, setIsUserDopDownOpen] = useState(false);
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
   const [newNotifications, setNewNotifications] = useState([]);
-
+  const { $t, switchLanguage } = useLanguage();
   const notificationRef = useRef(null);
   const dropDownRef = useRef(null);
 
@@ -223,7 +224,7 @@ const Header = ({ location, toggleSideBar }) => {
             <MenuIcon />
           </Hamburger>
 
-          <Logo to={Routes.HOME}>{SiteInfo.name}</Logo>
+          <Logo to={Routes.HOME}>{$t.logo}</Logo>
 
           <Spacing left="sm" right="md">
             <Search location={location} />
@@ -231,6 +232,11 @@ const Header = ({ location, toggleSideBar }) => {
         </LeftSide>
 
         <RightSide>
+          <Spacing right="md">
+            <Button ghost onClick={switchLanguage}>
+              {$t.language}
+            </Button>
+          </Spacing>
           <Spacing right="md">
             <Button ghost onClick={handleNotificationIconClick}>
               {NewNotificationsData.length > 0 && (

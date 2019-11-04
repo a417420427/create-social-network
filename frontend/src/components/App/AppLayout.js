@@ -71,17 +71,23 @@ const AppLayout = ({ location }) => {
     }
   });
 
-  useEffect(() => {
-    setIsSidebarOpen(isDesktop);
-  }, [isDesktop]);
+  useEffect(
+    () => {
+      setIsSidebarOpen(isDesktop);
+    },
+    [isDesktop]
+  );
 
-  useEffect(() => {
-    return () => {
-      if (!isDesktop) {
-        setIsSidebarOpen(false);
-      }
-    };
-  }, [location.pathname, isDesktop]);
+  useEffect(
+    () => {
+      return () => {
+        if (!isDesktop) {
+          setIsSidebarOpen(false);
+        }
+      };
+    },
+    [location.pathname, isDesktop]
+  );
 
   return (
     <>
