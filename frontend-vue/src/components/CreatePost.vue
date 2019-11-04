@@ -1,13 +1,25 @@
 <template>
   <div class="create-post">
+    <input
+      ref="uploadTarget"
+      @change="onUpload"
+      style="display: none;"
+      type="file"
+      accept="image/*"
+      name="file"
+    />
     <div class="post-content" ref="addPost" :class="{'is-editing': isEditing}">
       <UserIcon class="user-icon" width="40" />
       <textarea v-model="postTitle" @click="startEdit" :placeholder="$t('addPost')" />
-      <div v-if="!isEditing" class="post-image">
+      <div v-if="!isEditing" class="post-image" @click="startUpload">
         <UploadImageIcon width="20" />
       </div>
+
       <div v-if="isEditing" class="post-editing">
-        <div class="phone">
+        <div v-if="fileSrc" class="post-file">
+          <img :src="fileSrc" alt />
+        </div>
+        <div class="phone" @click="startUpload">
           <UploadImageIcon width="20" />
           <span>{{$t('phone')}}</span>
         </div>
@@ -26,11 +38,14 @@ import * as postSql from '../../graphql/post';
 import * as userSql from '../../graphql/user';
 import { mapState } from 'vuex';
 import { createPost } from '../request/post';
+import { getObjectURL } from '../utils/file';
 export default {
   data() {
     return {
       postTitle: '',
       isEditing: false,
+      fileSrc: null,
+      file: '',
     };
   },
   computed: {
@@ -50,14 +65,29 @@ export default {
     async confirmCreate() {
       if (!this.postTitle) return;
       const title = this.postTitle;
-      const image = '';
+      const image = this.file;
       const limit = 10;
       const skip = 0;
       const result = await createPost({ title, image, skip, limit });
       if (result && result.data) {
         this.isEditing = false;
         this.postTitle = '';
+        this.file = '';
+        this.fileSrc = '';
       }
+    },
+    startUpload() {
+      this.$refs.uploadTarget.click();
+    },
+    onUpload(e) {
+      const files = e.target.files;
+      if (files) {
+        Array.prototype.map.call(files, file => {
+          this.file = file;
+          this.fileSrc = getObjectURL(file);
+        });
+      }
+      this.isEditing = true;
     },
   },
 };
@@ -99,17 +129,19 @@ export default {
     border-radius: 12px;
     background-color: #f5f5f5;
   }
+
   .post-editing {
     position: absolute;
-    bottom: 0;
+    top: 120px;
     left: 0;
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     box-sizing: border-box;
     padding: 0 20px;
-    height: 80px;
     width: 100%;
     border-top: 1px solid $colors-grey200;
+    background: #fff;
     .phone {
       margin: 20px 0;
       padding: 0 10px;
@@ -133,6 +165,14 @@ export default {
           background-color: $colors-grey500;
           color: #fff;
         }
+      }
+    }
+    .post-file {
+      height: 150px;
+      width: 100%;
+      text-align: center;
+      > img {
+        height: 150px;
       }
     }
   }
