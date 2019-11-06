@@ -19,6 +19,7 @@
 <script>
 import { PostCommentIcon, LikeIcon } from '../icons';
 import { deleteLike, createLike } from '../request/like';
+import { mapState } from 'vuex';
 
 export default {
   data() {
@@ -37,19 +38,18 @@ export default {
     LikeIcon,
   },
   computed: {
+    ...mapState('auth', ['id']),
     hasLiked() {
-      return this.post.likes.find(like => like.user === this.authorId);
+      return this.post.likes.find(like => like.user === this.id);
     },
     hasCommented() {
-      return this.post.comments.find(
-        comment => comment.author.id === this.authorId
-      );
+      return this.post.comments.find(comment => comment.author.id === this.id);
     },
   },
   methods: {
     likeClicked() {
       if (this.isFetching) return;
-      const hasLike = this.post.likes.find(like => like.user === this.authorId);
+      const hasLike = this.post.likes.find(like => like.user === this.id);
       this.isFetching = true;
       if (hasLike) {
         deleteLike(hasLike);

@@ -5,6 +5,7 @@
 </template>
 <script>
 import { deleteFollow, createFollow } from '../request/follow';
+import { mapState } from 'vuex';
 export default {
   props: {
     user: {
@@ -13,6 +14,7 @@ export default {
     },
   },
   computed: {
+    ...mapState('auth', ['following']),
     isFollowed() {
       return this.following.find(f => f.user === this.user.id);
     },
@@ -25,7 +27,6 @@ export default {
       } else {
         result = await createFollow(this.user.id, this.user.username);
       }
-      console.log(result, this.following, this.user);
     },
   },
 };

@@ -28,9 +28,13 @@ import {
   PeopleIcon,
   NotificationIcon,
 } from '../icons';
+import { mapState } from 'vuex';
 
 export default {
   name: 'AppMenu',
+  computed: {
+    ...mapState('auth', ['username']),
+  },
   data() {
     return {
       tabs: [

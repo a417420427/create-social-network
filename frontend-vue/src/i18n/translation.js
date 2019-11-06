@@ -29,6 +29,14 @@ export const zh = {
   commentNotice: '评论了你的照片',
   follow: '关注',
   following: '已关注',
+  loginUser: '邮箱或账号',
+  login: '登陆',
+  signup: '注册',
+  password: '密码',
+  fullName: '全名',
+  createAccount: '创建用户',
+  email: '邮箱',
+  username: '用户名',
 };
 
 export const en = {
@@ -62,4 +70,12 @@ export const en = {
   commentNotice: 'commented on your photo',
   follow: 'follow',
   following: 'following',
+  loginUser: 'Username or Email',
+  login: 'Login',
+  signup: 'Sign up',
+  password: 'Password',
+  fullName: 'Full Name',
+  createAccount: 'Create Account',
+  email: 'email',
+  username: 'username',
 };

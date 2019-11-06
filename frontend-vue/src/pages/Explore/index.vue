@@ -4,7 +4,7 @@
   </div>
 </template>
 <script>
-import ExploreList from '../components/ExploreList';
+import ExploreList from './ExploreList';
 export default {
   components: {
     ExploreList,

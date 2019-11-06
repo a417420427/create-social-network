@@ -7,9 +7,10 @@
 </template>
 <script>
 import PostItem from './PostItem';
-import { GET_FOLLOWED_POSTS } from '../graphql/post';
-import { createComment } from '../request/comment';
-import { deleteLike, createLike } from '../request/like';
+import { GET_FOLLOWED_POSTS } from '../../graphql/post';
+import { createComment } from '../../request/comment';
+import { deleteLike, createLike } from '../../request/like';
+import { mapState } from 'vuex';
 export default {
   data() {
     return {
@@ -19,6 +20,9 @@ export default {
       isFetching: false,
     };
   },
+  computed: {
+    ...mapState('auth', ['id']),
+  },
   apollo: {
     getFollowedPosts: {
       query: GET_FOLLOWED_POSTS,
@@ -26,7 +30,7 @@ export default {
         return {
           limit: this.limit,
           skip: this.skip,
-          userId: this.authorId,
+          userId: this.id,
         };
       },
     },
@@ -36,6 +40,9 @@ export default {
   },
   methods: {
     createComment,
+  },
+  created() {
+    console.log(this.$apollo, 'xx');
   },
 };
 </script>

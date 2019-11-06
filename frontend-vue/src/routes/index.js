@@ -2,13 +2,12 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import * as paths from './names';
 
-const Home = () => import(/* webpackChunkName: "Home" */ '../pages/Home.vue');
+const Home = () => import(/* webpackChunkName: "Home" */ '../pages/Home');
 const Explore = () =>
-  import(/* webpackChunkName: "Explore" */ '../pages/Explore.vue');
-const People = () =>
-  import(/* webpackChunkName: "People" */ '../pages/People.vue');
+  import(/* webpackChunkName: "Explore" */ '../pages/Explore');
+const People = () => import(/* webpackChunkName: "People" */ '../pages/People');
 const Notifications = () =>
-  import(/* webpackChunkName: "Notifications" */ '../pages/Notifications.vue');
+  import(/* webpackChunkName: "Notifications" */ '../pages/Notifications');
 
 Vue.use(Router);
 const router = new Router({

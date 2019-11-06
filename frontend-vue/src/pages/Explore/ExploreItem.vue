@@ -27,12 +27,12 @@
   </li>
 </template>
 <script>
-import { UserIcon } from '../icons';
-import CreateComment from './CreateComment';
-import CommentAndLike from './CommentAndLike';
-import CommentsList from './CommentsList';
-import Follow from './Follow';
-import { createFollow, deleteFollow } from '../request/follow.js';
+import { UserIcon } from '../../icons';
+import CreateComment from '../../components/CreateComment';
+import CommentAndLike from '../../components/CommentAndLike';
+import CommentsList from '../../components/CommentsList';
+import Follow from '../../components/Follow';
+import { createFollow, deleteFollow } from '../../request/follow.js';
 export default {
   data() {
     return {

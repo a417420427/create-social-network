@@ -6,9 +6,9 @@
   </div>
 </template>
 <script>
-import { GET_USERS } from '../graphql/user';
-import { USER_SUGGESTIONS } from '../graphql/user';
-import UserCard from '../components/UserCard';
+import { GET_USERS } from '../../graphql/user';
+import { USER_SUGGESTIONS } from '../../graphql/user';
+import UserCard from './UserCard';
 
 export default {
   data() {
@@ -28,7 +28,7 @@ export default {
         return {
           limit: this.limit,
           skip: this.skip,
-          userId: this.authorId,
+          userId: this.$apollo.data.getAuthUser.id,
         };
       },
     },

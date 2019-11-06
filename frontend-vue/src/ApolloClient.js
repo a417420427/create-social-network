@@ -63,8 +63,24 @@ export const createApolloClient = apiUrl => {
   const authLink = createAuthLink();
   const uploadLink = createUploadLink({ uri: apiUrl });
 
+  // local data
+  // cache.writeData({
+  //   data: {
+  //     todoItems: [
+  //       {
+  //         __typename: 'Item',
+  //         id: 'dqdBHJGgjgjg',
+  //         text: 'test',
+  //         done: true,
+  //       },
+  //     ],
+  //   },
+  // });
+
   return new ApolloClient({
     link: ApolloLink.from([handleErrors(), authLink, uploadLink]),
+    // typeDefs,
+    // resolvers: {},
     cache,
   });
 };

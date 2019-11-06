@@ -7,7 +7,7 @@
   </div>
 </template>
 <script>
-import Follow from '../components/Follow';
+import Follow from '../../components/Follow';
 
 export default {
   props: {

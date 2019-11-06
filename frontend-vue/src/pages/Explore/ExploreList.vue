@@ -4,8 +4,10 @@
   </ul>
 </template>
 <script>
-import { GET_POSTS } from '../graphql/post';
+import { GET_POSTS } from '../../graphql/post';
 import ExploreItem from './ExploreItem';
+import { mapState } from 'vuex';
+
 export default {
   data() {
     return {
@@ -24,10 +26,13 @@ export default {
         return {
           limit: this.limit,
           skip: this.skip,
-          authUserId: this.authorId,
+          authUserId: this.id,
         };
       },
     },
+  },
+  computed: {
+    ...mapState('auth', ['id']),
   },
   components: { ExploreItem },
 };

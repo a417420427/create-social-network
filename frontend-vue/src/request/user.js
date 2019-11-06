@@ -1,12 +1,11 @@
-import { GET_AUTH_USER } from '../graphql/user';
+import { GET_AUTH_USER, SIGN_IN, SIGN_UP } from '../graphql/user';
 import { apolloClient } from '../ApolloClient';
-import { query } from '.';
+import { query, mutate } from '.';
 
 export const getAuthUser = async () => {
-  const result = await query({
+  return await query({
     query: GET_AUTH_USER,
   });
-  return result;
 };
 
 const getAuthInfo = reload => {
@@ -25,5 +24,23 @@ const getAuthInfo = reload => {
 };
 
 export const getAuthInfoSync = getAuthInfo();
+
+export const signIn = async ({ emailOrUsername, password }) => {
+  return await mutate({
+    mutation: SIGN_IN,
+    variables: {
+      input: { emailOrUsername, password },
+    },
+  });
+};
+
+export const signUp = async ({ fullName, email, password, username }) => {
+  return await mutate({
+    mutation: SIGN_UP,
+    variables: {
+      input: { fullName, email, password, username },
+    },
+  });
+};
 
 window.apolloClient = apolloClient;

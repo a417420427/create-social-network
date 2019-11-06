@@ -31,9 +31,9 @@ const mutations = {
 
 const actions = {
   async initAuthUser({ commit }) {
-    const user = await getAuthInfoSync();
+    const user = await getAuthUser();
     if (user) {
-      commit('setAuthUser', user);
+      commit('setAuthUser', user.data.getAuthUser);
     }
   },
 };

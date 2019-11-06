@@ -2,8 +2,7 @@ import { CREATE_POST, DELETE_POST, GET_FOLLOWED_POSTS } from '../graphql/post';
 import { GET_USER_POSTS } from '../graphql/user';
 import { mutate } from '.';
 import { getAuthInfoSync } from '../request/user';
-
-export async function deletePost({ postId, limit, skip }) {
+export async function deletePost({ postId }) {
   const { id } = await getAuthInfoSync();
   return await mutate({
     mutation: DELETE_POST,
@@ -18,15 +17,13 @@ export async function deletePost({ postId, limit, skip }) {
         query: GET_FOLLOWED_POSTS,
         variables: {
           userId: id,
-          skip,
-          limit,
         },
       },
     ],
   });
 }
 
-export const createPost = async ({ title, image, skip, limit }) => {
+export const createPost = async ({ title, image }) => {
   const { id, username } = await getAuthInfoSync();
   return await mutate({
     mutation: CREATE_POST,
@@ -42,16 +39,12 @@ export const createPost = async ({ title, image, skip, limit }) => {
         query: GET_FOLLOWED_POSTS,
         variables: {
           userId: id,
-          skip,
-          limit,
         },
       },
       {
         query: GET_USER_POSTS,
         variables: {
           username,
-          skip: 0,
-          limit,
         },
       },
     ],

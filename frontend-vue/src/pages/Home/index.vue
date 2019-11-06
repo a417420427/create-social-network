@@ -7,8 +7,8 @@
   </div>
 </template>
 <script>
-import PostList from '../components/PostList';
-import CreatePost from '../components/CreatePost';
+import PostList from './PostList';
+import CreatePost from '../../components/CreatePost';
 
 export default {
   data() {

@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <Login v-if="!authorId" />
-    <div class="app-logined" v-if="authorId">
+    <Login v-if="!id" />
+    <div class="app-logined" v-if="id">
       <AppHeader @toggleMenu="toggleMenu" />
       <AppMenu ref="menu" @toggleMenu="toggleMenu" :menuVisiable="menuVisiable" />
       <router-view></router-view>
@@ -10,25 +10,42 @@
 </template>
 
 <script>
-import Login from './pages/Login.vue';
+import Login from './pages/Login';
 import AppHeader from './components/AppHeader';
 import AppMenu from './components/AppMenu';
 import { signIn, getUser } from './request/user';
+import { GET_AUTH_USER } from './graphql/user';
+import { mapState } from 'vuex';
+import gql from 'graphql-tag';
 
 export default {
-  apollo: {
-    // 简单的查询，将更新 'hello' 这个 vue 属性
-  },
   name: 'App',
+  apollo: {
+    getAuthUser: {
+      query: GET_AUTH_USER,
+    },
+  },
   data() {
     return {
       menuVisiable: false,
+      getAuthUser: {},
     };
+  },
+  computed: {
+    ...mapState('auth', ['id']),
   },
   components: {
     Login,
     AppHeader,
     AppMenu,
+  },
+  watch: {
+    getAuthUser: {
+      deep: true,
+      handler(data) {
+        this.$store.commit('auth/setAuthUser', data);
+      },
+    },
   },
   methods: {
     toggleMenu(e) {
