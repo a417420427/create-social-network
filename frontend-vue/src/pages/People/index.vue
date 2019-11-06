@@ -9,6 +9,7 @@
 import { GET_USERS } from '../../graphql/user';
 import { USER_SUGGESTIONS } from '../../graphql/user';
 import UserCard from './UserCard';
+import { mapState } from 'vuex';
 
 export default {
   data() {
@@ -28,10 +29,13 @@ export default {
         return {
           limit: this.limit,
           skip: this.skip,
-          userId: this.$apollo.data.getAuthUser.id,
+          userId: this.id,
         };
       },
     },
+  },
+  computed: {
+    ...mapState('auth', ['id']),
   },
   components: {
     UserCard,

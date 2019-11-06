@@ -8,6 +8,8 @@ const Explore = () =>
 const People = () => import(/* webpackChunkName: "People" */ '../pages/People');
 const Notifications = () =>
   import(/* webpackChunkName: "Notifications" */ '../pages/Notifications');
+const UserProfile = () =>
+  import(/* webpackChunkName: "UserProfile" */ '../pages/UserProfile');
 
 Vue.use(Router);
 const router = new Router({
@@ -31,6 +33,11 @@ const router = new Router({
       path: paths.NOTIFICATIONS,
       name: 'notifications',
       component: Notifications,
+    },
+    {
+      path: paths.USER_PROFILE,
+      name: 'userProfile',
+      component: UserProfile,
     },
   ],
 });

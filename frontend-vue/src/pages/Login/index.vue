@@ -32,17 +32,17 @@
         />
         <input
           autocomplete="current-password"
-          :placeholder="$t('password')"
-          type="password"
-          v-model="signUpPassword"
-        />
-        <input
-          autocomplete="current-password"
           :placeholder="$t('username')"
           type="text"
           v-model="username"
         />
-        <button type="button">{{$t('signup')}}</button>
+        <input
+          autocomplete="current-password"
+          :placeholder="$t('password')"
+          type="password"
+          v-model="signUpPassword"
+        />
+        <button @click="handleSignUp" type="button">{{$t('signup')}}</button>
       </form>
     </div>
   </div>
@@ -69,8 +69,8 @@ export default {
       });
       if (result && result.data) {
         localStorage.setItem('token', result.data.signin.token);
+        location.reload();
       }
-      console.log(this.$apollo);
     },
     async handleSignUp() {
       const result = await signUp({
@@ -80,7 +80,8 @@ export default {
         fullName: this.fullName,
       });
       if (result && result.data) {
-        localStorage.setItem('token', data.signup.token);
+        localStorage.setItem('token', result.data.signup.token);
+        location.reload();
       }
     },
   },

@@ -23,6 +23,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .user-card {
+  margin-top: 20px;
   width: 100%;
   display: flex;
   box-sizing: border-box;

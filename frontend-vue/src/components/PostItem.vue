@@ -32,12 +32,12 @@ import {
   LikeIcon,
   DotsIcon,
   PostCommentIcon,
-} from '../../icons';
-import PostModal from '../../components/PostModal';
-import CreateComment from '../../components/CreateComment';
-import CommentsList from '../../components/CommentsList';
-import CommentAndLike from '../../components/CommentAndLike';
-import { timeAgo } from '../../utils/time-ago';
+} from '../icons';
+import PostModal from './PostModal';
+import CreateComment from './CreateComment';
+import CommentsList from './CommentsList';
+import CommentAndLike from './CommentAndLike';
+import { timeAgo } from '../utils/time-ago';
 
 export default {
   data() {

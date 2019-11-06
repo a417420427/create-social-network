@@ -43,7 +43,9 @@ export default {
     getAuthUser: {
       deep: true,
       handler(data) {
-        this.$store.commit('auth/setAuthUser', data);
+        if (data) {
+          this.$store.commit('auth/setAuthUser', data);
+        }
       },
     },
   },

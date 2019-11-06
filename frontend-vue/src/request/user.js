@@ -1,6 +1,13 @@
-import { GET_AUTH_USER, SIGN_IN, SIGN_UP } from '../graphql/user';
+import {
+  GET_AUTH_USER,
+  SIGN_IN,
+  SIGN_UP,
+  UPLOAD_PHOTO,
+  GET_USER_POSTS,
+} from '../graphql/user';
 import { apolloClient } from '../ApolloClient';
 import { query, mutate } from '.';
+import { GET_FOLLOWED_POSTS } from '../graphql/post';
 
 export const getAuthUser = async () => {
   return await query({
@@ -40,6 +47,20 @@ export const signUp = async ({ fullName, email, password, username }) => {
     variables: {
       input: { fullName, email, password, username },
     },
+  });
+};
+
+export const uploadPhoto = async ({ image, imagePublicId, isCover }) => {
+  const { id } = await getAuthInfoSync();
+  return await mutate({
+    mutation: UPLOAD_PHOTO,
+    variables: {
+      input: { image, imagePublicId, id, isCover },
+    },
+    refetchQueries: [
+      { query: GET_FOLLOWED_POSTS, variables: { userId: id } },
+      { query: GET_AUTH_USER },
+    ],
   });
 };
 

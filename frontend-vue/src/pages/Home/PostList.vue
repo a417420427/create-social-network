@@ -6,7 +6,7 @@
   </div>
 </template>
 <script>
-import PostItem from './PostItem';
+import PostItem from '../../components/PostItem';
 import { GET_FOLLOWED_POSTS } from '../../graphql/post';
 import { createComment } from '../../request/comment';
 import { deleteLike, createLike } from '../../request/like';
