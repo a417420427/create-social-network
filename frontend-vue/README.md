@@ -1,27 +1,12 @@
-# frontend-vue
+# 基于 Social-network 的 Vue 版本
 
-> A Vue.js project
+### 技术栈
 
-## Build Setup
+vue+vue-apoll+apollo-client+vuex
 
-``` bash
-# install dependencies
-npm install
+### 已完成功能
 
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
-npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
-
-# run unit tests
-npm run unit
-
-# run all tests
-npm test
-```
-
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+1. 登陆注册
+2. 文章增删
+3. 评论和点赞
+4. 用户上传图片和封面
